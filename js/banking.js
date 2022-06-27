@@ -8,56 +8,55 @@ function getInputValue(inputid) {
     newInputAmount.value = '';
     return newInputValue;
 }
-
-// Get Event Handler on Deposit Button 
-document.getElementById('deposit-button').addEventListener('click', function () {
-
-    const newDepositValue = getInputValue('input-deposit')
-
+function updateTotal(amount, currenTotalId) {
     // Get Current Deposit Value 
-    const currentDepostAmount = document.getElementById('deposit-total');
-    const currentDepostText = currentDepostAmount.innerText;
-    const currentDepositTotal = parseFloat(currentDepostText);
+    const currentAmount = document.getElementById(currenTotalId);
+    const currentTotalText = currentAmount.innerText;
+    const currentTotalAmount = parseFloat(currentTotalText);
 
     // Adding current deposit and new input deposit 
-    const totalDepositAmount = newDepositValue + currentDepositTotal;
-    currentDepostAmount.innerText = totalDepositAmount;
+    const totalDepositAmount = amount + currentTotalAmount;
+    currentAmount.innerText = totalDepositAmount;
+}
 
+function updateBalance(amount, isAdd) {
     // Get Balance Value 
     const currentBalance = document.getElementById('balance-total');
     const currentBalanceText = currentBalance.innerText;
     const currentBalanceTotal = parseFloat(currentBalanceText);
 
-    // Adding current balance with new input deposit amount 
-    const totalBalance = currentBalanceTotal + newDepositValue;
-    currentBalance.innerText = totalBalance;
+    if (isAdd == true) {
+        // Adding current balance with new input deposit amount 
+        const totalBalance = currentBalanceTotal + amount;
+        currentBalance.innerText = totalBalance;
+    }
+    else {
+        // Adding current balance with new input deposit amount 
+        const totalBalance = currentBalanceTotal - amount;
+        currentBalance.innerText = totalBalance;
+    }
+}
+// Get Event Handler on Deposit Button 
+document.getElementById('deposit-button').addEventListener('click', function () {
+
+    const newDepositValue = getInputValue('input-deposit')
+    updateTotal(newDepositValue, 'deposit-total')
+    updateBalance(newDepositValue, true)
 })
 
 // Get withdraw event handler 
 document.getElementById('withdraw-button').addEventListener('click', function () {
 
-    // get withdraw input value 
-    // const newWithdrawInput = document.getElementById('input-withdraw');
-    // const newWithdrawInputText = newWithdrawInput.value;
-    // const newWithdrawTotal = parseFloat(newWithdrawInputText);
-
     const newWithdrawTotal = getInputValue('input-withdraw')
+    updateTotal(newWithdrawTotal, 'withdraw-total')
+    updateBalance(newWithdrawTotal, false)
 
-    // get current withdraw amount 
-    const currentWithdrawTotal = document.getElementById('withdraw-total');
-    const currentWithdrawText = currentWithdrawTotal.innerText;
-    const currentWithdrawTotalAmount = parseFloat(currentWithdrawText);
+    // // Get Balance Total Amount 
+    // const currentBalance = document.getElementById('balance-total');
+    // const currentBalanceText = currentBalance.innerText;
+    // const currentBalanceTotal = parseFloat(currentBalanceText);
 
-    // Adding current withdraw value with new withdraw input value 
-    const newWithdrawTotalAmount = currentWithdrawTotalAmount + newWithdrawTotal;
-    currentWithdrawTotal.innerText = newWithdrawTotalAmount;
-
-    // Get Balance Total Amount 
-    const currentBalance = document.getElementById('balance-total');
-    const currentBalanceText = currentBalance.innerText;
-    const currentBalanceTotal = parseFloat(currentBalanceText);
-
-    // Subtraction from current Balance
-    const totalBalance = currentBalanceTotal - newWithdrawTotal
-    currentBalance.innerText = totalBalance;
+    // // Subtraction from current Balance
+    // const totalBalance = currentBalanceTotal - newWithdrawTotal
+    // currentBalance.innerText = totalBalance;
 })
