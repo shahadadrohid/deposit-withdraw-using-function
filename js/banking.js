@@ -50,13 +50,4 @@ document.getElementById('withdraw-button').addEventListener('click', function ()
     const newWithdrawTotal = getInputValue('input-withdraw')
     updateTotal(newWithdrawTotal, 'withdraw-total')
     updateBalance(newWithdrawTotal, false)
-
-    // // Get Balance Total Amount 
-    // const currentBalance = document.getElementById('balance-total');
-    // const currentBalanceText = currentBalance.innerText;
-    // const currentBalanceTotal = parseFloat(currentBalanceText);
-
-    // // Subtraction from current Balance
-    // const totalBalance = currentBalanceTotal - newWithdrawTotal
-    // currentBalance.innerText = totalBalance;
 })
